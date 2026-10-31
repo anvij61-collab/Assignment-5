@@ -1,0 +1,49 @@
+/*Example Input Fi_er 
+Fever:filer:Filter:Fixer:fiber:fibre:tailor:offer 
+Output FILER:FIXER:FIBER 
+Explanation: The candidate must have five characters, with F, I, and E in their specified posi ons. filer, fixer, and fiber sa sfy the pattern. 
+
+*/
+import java.util.*;
+public class q1recovermissiing {
+    public static void main(String[] args) {
+        
+        Scanner sc = new Scanner(System.in);
+
+        String pattern = sc.nextLine().toUpperCase();
+        String dictionary = sc.nextLine().toUpperCase();
+
+        String[] words = dictionary.split(":");
+
+        StringBuilder result = new StringBuilder();
+
+        for (String word : words) {
+
+            if (word.length() == pattern.length()) {
+                boolean match = true;
+
+                for (int i = 0; i < pattern.length(); i++) {
+                    if (pattern.charAt(i) != '_' &&
+                        pattern.charAt(i) != word.charAt(i)) {
+
+                            match = false;
+                        break;
+                    }
+                }
+
+                if (match) {
+                    if (result.length() > 0) {
+                        result.append(":");
+                    }
+                    result.append(word);
+                }
+            }
+        }
+        if (result.length() > 0) {
+            System.out.println(result);
+        } else {
+            System.out.println("ERROR");
+        }
+        sc.close();
+    }
+}
