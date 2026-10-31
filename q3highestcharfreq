@@ -1,0 +1,49 @@
+/* Input a 
+banana:apple:grape:pear:avocado 
+Output BANANA:AVOCADO 
+Explanation: banana contains three occurrences of a, and avocado also contains three. The other words contain fewer occurrences. 
+ */
+import java.util.*;
+public class q3highestcharfreq {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        String pattern = sc.nextLine().toUpperCase();
+        String dictionary = sc.nextLine().toUpperCase();
+
+        String[] words = dictionary.split(":");
+
+        int maxCount= 0;
+
+        for (String word : words) {
+            int count =0;
+             for(int i=0 ; i< word.length(); i++){
+                if(word.charAt(i) == pattern.charAt(0)){
+                    count++;
+                }
+            }
+            if(count> maxCount){
+                maxCount = count;
+            }
+        }
+
+        StringBuilder result = new StringBuilder();
+        for(String word: words){
+            int count =0;
+
+            for(int i=0; i<word.length() ; i++){
+                if(word.charAt(i) == pattern.charAt(0)){
+                    count++;
+                }
+            }
+            if(count == maxCount){
+                if(result.length()>0){
+                    result.append(":");
+                }
+                result.append(word);
+            }
+        }
+        System.out.println(result);
+        sc.close();
+    }
+}
