@@ -1,0 +1,45 @@
+/*Input 
+pro 
+x 
+5 
+ProductX:ProMax:ProBox:ProjectX:ProX 
+Output PRODUCTX:PROJECTX 
+Explanation: The product must begin with pro, end with x, and contain at least five characters. ProMax and ProBox fail the suffix condi on.  */
+
+import java.util.*;
+public class q4dilterproducts {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter prefix: ");
+        String prefix = String.valueOf(sc.next().toUpperCase().charAt(0));
+
+        System.out.println("Enter sufix: ");
+        String sufix = sc.next().toUpperCase();
+
+        System.out.println("Enter length: ");
+        int length = sc.nextInt();
+
+        System.out.println("Enter dictionary: ");
+        String dictionary = sc.next();
+
+        String[] words = dictionary.split(":");
+
+        StringBuilder result = new StringBuilder();
+
+        for (String word : words) {
+
+            if (word.length() >= length && word.startsWith(prefix) && word.endsWith(sufix)) {
+                if (result.length() > 0) {
+                    result.append(":");
+                }
+                result.append(word.toUpperCase());
+            }
+        }
+        if (result.length() == 0) {
+            System.out.println("No products found.");
+        } else {
+            System.out.println("Filtered products: " + result);
+        }
+    }
+}
