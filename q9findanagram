@@ -1,0 +1,41 @@
+/*Input listen 
+Listen:silent:enlist:tinsel:google:inlets 
+Output LISTEN:SILENT:ENLIST:TINSEL:INLETS 
+ */
+import java.util.*;
+public class q9findanagram {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter target word: ");
+        String targetWord = sc.nextLine().toUpperCase();
+
+        System.out.print("Enter dictionary: ");
+        String dictionary = sc.nextLine().toUpperCase();
+
+        String[] words = dictionary.split(":");
+
+        int[] targetCharCount = new int[26];
+            for (char c : targetWord.toCharArray()) {
+                targetCharCount[c - 'A']++;
+            }
+
+        StringBuilder result = new StringBuilder();
+        for (String word : words) {
+            if (word.length() == targetWord.length()) {
+                int[] wordCharCount = new int[26];
+                for (char c : word.toCharArray()) {
+                    wordCharCount[c - 'A']++;
+                }
+
+                if (Arrays.equals(targetCharCount, wordCharCount)) {
+                    if (result.length() > 0) {
+                        result.append(":");
+                    }
+                    result.append(word.toUpperCase());
+                }
+            }
+        }
+        System.out.println(result);
+    }
+}
