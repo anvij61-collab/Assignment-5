@@ -1,0 +1,24 @@
+/*Example Input Java   is Easy 
+java is easy 
+Output MATCH 
+
+Explanation: After ignoring case and collapsing repeated spaces, both sentences become "java is easy".
+ */
+import java.util.Scanner;
+public class q5normalizeandcomparesentence {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter first sentence: ");
+        String sentence1 = sc.nextLine().toLowerCase().trim().replaceAll("\\s+", " ");
+
+        System.out.println("Enter second sentence: ");
+        String sentence2 = sc.nextLine().toLowerCase().trim().replaceAll("\\s+", " ");
+
+        if (sentence1.equals(sentence2)) {
+            System.out.println("The sentences are identical.");
+        } else {
+            System.out.println("The sentences are different.");
+        }
+    }
+}
