@@ -1,0 +1,72 @@
+/*Input 3 
+c_t 
+b_g 
+d_g 
+cat:cut:cot:bag:beg:dog:dig 
+Output CAT:CUT:COT 
+        BAG:BEG 
+        DOG:DIG 
+
+Explanation: Each query is evaluated independently against the same dictionary. 
+ */
+
+import java.util.Scanner;
+
+public class q8searchwords {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int q = sc.nextInt();
+        sc.nextLine(); 
+
+        String[] patterns = new String[q];
+
+        for (int i = 0; i < q; i++) {
+            patterns[i] = sc.nextLine().toUpperCase();
+        }
+
+        String dictionary = sc.nextLine().toUpperCase();
+
+        String[] words = dictionary.split(":");
+
+        for (String pattern : patterns) {
+
+            StringBuilder result = new StringBuilder();
+
+            for (String word : words) {
+
+                if (word.length() == pattern.length()) {
+
+                    boolean match = true;
+
+                    for (int i = 0; i < pattern.length(); i++) {
+
+                        if (pattern.charAt(i) != '_' &&
+                            pattern.charAt(i) != word.charAt(i)) {
+
+                            match = false;
+                            break;
+                        }
+                    }
+
+                    if (match) {
+                        if (result.length() > 0) {
+                            result.append(":");
+                        }
+
+                        result.append(word);
+                    }
+                }
+            }
+
+            if (result.length() > 0) {
+                System.out.println(result);
+            } else {
+                System.out.println("ERROR-009");
+            }
+        }
+
+        sc.close();
+    }
+}
