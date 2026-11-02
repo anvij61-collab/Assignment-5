@@ -1,0 +1,69 @@
+/*input 8 
+java python JAVA c python java c sql 
+Output JAVA PYTHON C SQL 
+Explanation: java appears three times, python twice, c twice, and sql once. PYTHON appears before C because it first appeared earlier in the input. 
+*/
+
+import java.util.Scanner;
+
+public class q12rankwords {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+
+        String[] input = new String[n];
+
+        for (int i = 0; i < n; i++) {
+            input[i] = sc.next().toLowerCase();
+        }
+
+        String[] words = new String[n];
+        int[] freq = new int[n];
+
+        int count = 0;
+
+        for (int i = 0; i < n; i++) {
+
+            boolean found = false;
+
+            for (int j = 0; j < count; j++) {
+
+                if (input[i].equals(words[j])) {
+                    freq[j]++;
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                words[count] = input[i];
+                freq[count] = 1;
+                count++;
+            }
+        }
+
+        for (int i = 0; i < count; i++) {
+            for (int j = i + 1; j < count; j++) {
+
+                if (freq[i] < freq[j]) {
+
+                    int temp = freq[i];
+                    freq[i] = freq[j];
+                    freq[j] = temp;
+
+                    String tempWord = words[i];
+                    words[i] = words[j];
+                    words[j] = tempWord;
+                }
+            }
+        }
+
+        for (int i = 0; i < count; i++) {
+            System.out.print(words[i].toUpperCase() + " ");
+        }
+
+        sc.close();
+    }
+}
