@@ -1,0 +1,68 @@
+/*Input cat 
+bat:cut:cart:dog 
+Output BAT:CUT 
+Explanation: Replacing c with b transforms cat into bat in one edit. Replacing a with u transforms cat into cut in one edit. cart requires an insertion, while dog requires three substitutions. 
+*/
+import java.util.*;
+
+public class q11minedits {
+
+    static int editDistance(String a, String b, int i, int j) {
+        if (i == a.length()) {
+            return b.length() - j;
+        }
+
+        if (j == b.length()) {
+            return a.length() - i;
+        }
+
+        if (a.charAt(i) == b.charAt(j)) {
+            return editDistance(a, b, i + 1, j + 1);
+        }
+
+        int insert = editDistance(a, b, i, j + 1);
+
+        int delete = editDistance(a, b, i + 1, j);
+
+        int replace = editDistance(a, b, i + 1, j + 1);
+
+        return 1 + Math.min(insert,
+                   Math.min(delete, replace));
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter target word: ");
+        String input = sc.nextLine().toLowerCase();
+
+        System.out.print("Enter dictionary: ");
+        String dictionary = sc.nextLine().toLowerCase();
+
+        String[] words = dictionary.split(":");
+
+        StringBuilder result = new StringBuilder();
+        int minDistance = Integer.MAX_VALUE;
+
+        for (String word : words) {
+
+            int distance = editDistance(input, word, 0, 0);
+
+            if (distance < minDistance) {
+                minDistance = distance;
+                result.setLength(0);
+                result.append(word.toUpperCase());
+            } 
+            else if (distance == minDistance) {
+                result.append(":").append(word.toUpperCase());
+            }
+        }
+
+        if (result.length() == 0) {
+            System.out.println("NO-WORD");
+        } else {
+            System.out.println(result);
+        }
+
+    }
+}
