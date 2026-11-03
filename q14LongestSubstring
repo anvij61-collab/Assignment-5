@@ -1,0 +1,32 @@
+/*Example Input abcabcbb 
+Output 3 
+Explanation: abc, bca, and cab are examples of valid substrings of length three. No longer substring can avoid repea ng a character. 
+ */
+
+import java.util.Scanner;
+
+public class q14LongestSubstring {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        String s = sc.nextLine();
+
+        int[] freq = new int[128];
+
+        int left = 0;
+        int maxLength = 0;
+
+        for (int right = 0; right < s.length(); right++) {
+            char ch = s.charAt(right);
+            while (freq[ch] > 0) {
+                freq[s.charAt(left)]--;
+                left++;
+            }
+            freq[ch]++;
+            int length = right - left + 1;
+            maxLength = Math.max(maxLength, length);
+        }
+
+        System.out.println(maxLength);
+    }
+}
