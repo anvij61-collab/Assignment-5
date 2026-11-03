@@ -1,0 +1,46 @@
+/* Input abppplee 
+able:apple:ale:appeal:plea 
+Output APPLE 
+Explanation: apple can be formed by selecting characters from the source in order. able and ale are also subsequences but shorter. appeal cannot be formed in the required order. */
+
+import java.util.Scanner;
+public class q13longestdictonaryword {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter source word:");
+        String word = sc.nextLine().toLowerCase();
+
+        System.out.println("Enter dictionary words:");
+        String dictWords = sc.nextLine().toLowerCase();
+
+        String[] words = dictWords.split(":");
+
+        String longest = "";
+
+        for (String dictWord : words) {
+            int i = 0; 
+            int j = 0; 
+
+            while (i < word.length() && j < dictWord.length()) {
+                if (word.charAt(i) == dictWord.charAt(j)) {
+                    j++;
+                }
+                i++;
+            }
+            if (j == dictWord.length()) {
+                if (dictWord.length() > longest.length()) {
+                    longest = dictWord;
+                }
+            }
+        }
+
+        if (longest.isEmpty()) {
+            System.out.println("NO-MATCH");
+        } else {
+            System.out.println(longest.toUpperCase());
+        }
+
+        sc.close();
+    }
+}
