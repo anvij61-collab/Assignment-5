@@ -1,0 +1,43 @@
+/* Example Input 6 
+eat tea tan ate nat bat 
+Output EAT TEA ATE 
+TAN NAT 
+BAT 
+Explanation: eat, tea, and ate contain the same characters. The group appears first because eat occurs first in the input. The same principle applies to the other groups. 
+ */
+import java.util.*;
+public class q15groupanagrams {
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter the number of words:");
+        int n = sc.nextInt();
+        sc.nextLine(); 
+
+        System.out.println("Enter the words:");
+        String words = sc.nextLine().toUpperCase();
+        String[] wordArray = words.split("\\s+");
+
+        LinkedHashMap<String, ArrayList<String>> map = new LinkedHashMap<>();
+        for (int i = 0; i < wordArray.length; i++) {
+            char[] charArray = wordArray[i].toCharArray();
+            Arrays.sort(charArray);
+            String key = new String(charArray);   
+                       
+            if(map.containsKey(key)){
+                map.get(key).add(wordArray[i]);
+            } else {
+                ArrayList<String> list = new ArrayList<>();
+                list.add(wordArray[i]);
+                map.put(key, list);
+            }
+
+        }
+        for (ArrayList<String> group : map.values()) {
+            for (String word : group) {
+                System.out.print(word + " ");
+            }
+            System.out.println();
+        }
+    }
+}
