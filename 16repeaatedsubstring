@@ -1,0 +1,37 @@
+/*Example Input banana 
+Output ana 
+Explanation: ana occurs twice in banana, starting at positions 2 and 4 when positions are counted from 1. It is longer than any other repeated substring. 
+ */
+import java.util.Scanner;
+public class q16repeaatedsubstring {
+    
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        String s = sc.nextLine();
+        int n = s.length();
+
+        int maxLength = 0;
+        int start = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                int k = 0;
+                while (j + k < n &&
+                       s.charAt(i + k) == s.charAt(j + k)) {
+                    k++;
+                }
+                if (k > maxLength) {
+                    maxLength = k;
+                    start = i;
+                }
+            }
+        }
+
+        if (maxLength == 0) {
+            System.out.println("NO-REPEAT");
+        } else {
+            System.out.println(s.substring(start, start + maxLength));
+        }
+    }
+}
