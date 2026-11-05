@@ -1,0 +1,64 @@
+/* Example Input ADOBECODEBANC 
+ABC 
+Output BANC 
+Explanation: BANC is the shortest substring containing A, B, and C. Although ADOBEC also contains all three characters, it is longer. 
+ */
+import java.util.*;
+public class q17minwindow {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.nextLine();
+        String t = sc.nextLine();
+
+        int n = s.length();
+
+        if (t.length() > n) {
+            System.out.println("NO-WINDOW");
+            return;
+        }
+        HashMap<Character, Integer> map = new HashMap<>();
+
+        for (char ch : t.toCharArray()) {
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
+        }
+
+        int requiredCount = t.length();
+        int i = 0, j = 0;
+
+        int minWindowSize = Integer.MAX_VALUE;
+        int start_i = 0;
+
+        while (j < n) {
+            char ch = s.charAt(j);
+
+            if (map.containsKey(ch) && map.get(ch) > 0) {
+                requiredCount--;
+            }
+
+            map.put(ch, map.getOrDefault(ch, 0) - 1);
+
+            while (requiredCount == 0) {
+
+                int currWindowSize = j - i + 1;
+
+                if (minWindowSize > currWindowSize) {
+                    minWindowSize = currWindowSize;
+                    start_i = i;
+                }
+
+                char startChar = s.charAt(i);
+                map.put(startChar, map.getOrDefault(startChar, 0) + 1);
+                if (map.containsKey(startChar) && map.get(startChar) > 0) {
+                    requiredCount++;
+                }
+                i++;
+            }
+            j++;
+        }
+        System.out.println(
+            minWindowSize == Integer.MAX_VALUE
+                ? "NO-WINDOW"
+                : s.substring(start_i, start_i + minWindowSize)
+        );
+    }
+}
