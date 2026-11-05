@@ -1,0 +1,44 @@
+/* Input cat 
+cut 
+1 1 2 
+Output 2 
+Explanation: Replace a with u. The subs tu on costs 2, and no other opera on is needed. The minimum transforma on cost is therefore 2. 
+ */
+import java.util.Scanner;
+public class q20mincosttotransform {
+
+    static int minCost(String s1, String s2, int i, int j,
+                       int ins, int del, int rep) {
+
+        if (i == s1.length()) {
+            return (s2.length() - j) * ins;
+        }
+        if (j == s2.length()) {
+            return (s1.length() - i) * del;
+        }
+
+        if (s1.charAt(i) == s2.charAt(j)) {
+            return minCost(s1, s2, i + 1, j + 1, ins, del, rep);
+        }
+
+        int insertion = ins + minCost(s1, s2, i, j + 1, ins, del, rep);
+        int deletion = del + minCost(s1, s2, i + 1, j, ins, del, rep);
+        int substitution = rep + minCost(s1, s2, i + 1, j + 1, ins, del, rep);
+
+        return Math.min(insertion,
+               Math.min(deletion, substitution));
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        String s1 = sc.nextLine();
+        String s2 = sc.nextLine();
+
+        int ins = sc.nextInt();
+        int del = sc.nextInt();
+        int rep = sc.nextInt();
+
+        System.out.println(minCost(s1, s2, 0, 0, ins, del, rep));
+    }
+}
